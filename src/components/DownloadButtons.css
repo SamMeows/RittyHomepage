@@ -1,0 +1,70 @@
+.download-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.download-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: #000;
+  color: white;
+  border-radius: 12px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.app-store-btn {
+  background: linear-gradient(145deg, #000, #333);
+}
+
+.google-play-btn {
+  background: linear-gradient(145deg, #01875f, #4dc989);
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-icon {
+  font-size: 2rem;
+}
+
+.btn-text {
+  text-align: left;
+}
+
+.btn-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.btn-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+@media (max-width: 500px) {
+  .download-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .download-btn {
+    min-width: 250px;
+  }
+}
