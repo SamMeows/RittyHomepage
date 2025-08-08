@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -32,10 +33,25 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      favicon: './public/favicon.png',
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/favicon.png', to: 'favicon.png' },
+      ],
     }),
   ],
   devServer: {
-    static: path.join(__dirname, 'dist'),
+    static: [
+      {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/',
+      },
+      {
+        directory: path.join(__dirname, 'dist'),
+        publicPath: '/',
+      }
+    ],
     port: 3001,
     historyApiFallback: true,
     open: true,
