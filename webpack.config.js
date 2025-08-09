@@ -38,6 +38,10 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'public/favicon.png', to: 'favicon.png' },
+        { from: 'public/apple-touch-icon.png', to: 'apple-touch-icon.png' },
+        { from: 'public/og-image.png', to: 'og-image.png' },
+        { from: 'public/robots.txt', to: 'robots.txt' },
+        { from: 'public/sitemap.xml', to: 'sitemap.xml' },
       ],
     }),
   ],
