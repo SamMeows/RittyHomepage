@@ -19,6 +19,31 @@ interface LandingPageProps {
 const LandingPage: React.FC<LandingPageProps> = ({ language = 'kr' }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // GA Event Tracking for App Downloads
+  const trackDownloadClick = (platform: 'ios' | 'android', url: string) => {
+    // Get UTM parameters from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const utmSource = urlParams.get('utm_source') || 'direct';
+    const utmMedium = urlParams.get('utm_medium') || 'none';
+    const utmCampaign = urlParams.get('utm_campaign') || 'none';
+    
+    // Send event to GA4
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'download_click', {
+        platform: platform,
+        utm_source: utmSource,
+        utm_medium: utmMedium,
+        utm_campaign: utmCampaign,
+        full_url: window.location.href,
+        language: language
+      });
+    }
+    
+    // Open download link
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+  
   // Content based on language
   const content = {
     kr: {
@@ -103,12 +128,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ language = 'kr' }) => {
               
               {/* App Store Buttons */}
               <div className="app-buttons">
-                <a href={currentContent.appStoreUrl} className="app-store-button" target="_blank" rel="noopener noreferrer" aria-label="리티 iOS 앱 다운로드하기">
+                <button 
+                  className="app-store-button" 
+                  onClick={() => trackDownloadClick('ios', currentContent.appStoreUrl)}
+                  aria-label="리티 iOS 앱 다운로드하기"
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                >
                   <img src={appStoreBtn} alt="리티 앱 스토어 다운로드 - iOS" />
-                </a>
-                <a href={currentContent.googlePlayUrl} className="google-play-button" target="_blank" rel="noopener noreferrer" aria-label="리티 Android 앱 다운로드하기">
+                </button>
+                <button 
+                  className="google-play-button" 
+                  onClick={() => trackDownloadClick('android', currentContent.googlePlayUrl)}
+                  aria-label="리티 Android 앱 다운로드하기"
+                  style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
+                >
                   <img src={googlePlayBtn} alt="리티 구글 플레이 다운로드 - Android" />
-                </a>
+                </button>
               </div>
             </div>
             
